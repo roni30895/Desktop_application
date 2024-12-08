@@ -1,4 +1,4 @@
-# Golang Desktop Application and Python Microservice
+# Desktop Application with Golang and Python Microservice
 
 This project consists of two components:
 
