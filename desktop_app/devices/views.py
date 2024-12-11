@@ -63,10 +63,10 @@ def view_all_devices(request):
 # View Scan Results for a Device
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-def view_scan_results(request, device_id):
+def view_scan_results(request, hostname):
     if request.method == 'GET':
         try:
-            device = Device.objects.get(id=device_id)
+            device = Device.objects.get(hostname=hostname)
             scan_results = ScanResult.objects.filter(device=device)
             serializer = ScanResultSerializer(scan_results, many=True)
             return Response(serializer.data)
