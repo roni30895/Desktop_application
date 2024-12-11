@@ -95,8 +95,38 @@ func main() {
 		c.JSON(200, gin.H{"message": "Scan results saved successfully!"})
 	})
 
+	// Route to view all devices
+	r.GET("/view_devices", func(c *gin.Context) {
+		devices, err := fetchAllDevices()
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Unable to fetch devices: " + err.Error()})
+			return
+		}
+		c.JSON(200, gin.H{"devices": devices})
+	})
+
 	// Start the web server
 	r.Run(":8080")
+}
+
+func fetchAllDevices() ([]Device, error) {
+	url := fmt.Sprintf("%s/view_devices", "http://localhost:8000")
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("Failed to fetch devices")
+	}
+
+	var devices []Device
+	if err := json.NewDecoder(resp.Body).Decode(&devices); err != nil {
+		return nil, err
+	}
+
+	return devices, nil
 }
 
 func loadConfig(config *Config) error {

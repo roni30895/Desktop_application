@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import RegisterDeviceView, SaveScanResultsView, ViewAllDevicesView
+from . import views
 
 urlpatterns = [
-    path('register_device/', RegisterDeviceView.as_view(), name='register_device'),
-    path('save_scan_results/', SaveScanResultsView.as_view(), name='save_scan_results'),
-    path('view_all_devices/', ViewAllDevicesView.as_view(), name='view_all_devices'),
+    path('register_device/', views.register_device, name='register_device'),
+    path('save_scan_results/', views.save_scan_results, name='save_scan_results'),
+    path('view_all_devices/', views.view_all_devices, name='view_all_devices'),
+    path('view_scan_results/<int:device_id>/', views.view_scan_results, name='view_scan_results'),
 ]
