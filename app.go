@@ -51,7 +51,7 @@ func main() {
 	// Route to register device
 	r.POST("/register_device", func(c *gin.Context) {
 		hostname, _ := os.Hostname()
-		macAddress := "XX:XX:XX:XX:XX:XX" // This should be fetched dynamically
+		macAddress := "XX:XX:XX:XX:XX:XX"
 		device := Device{Hostname: hostname, MacAddress: macAddress}
 
 		// Call register device API
@@ -170,9 +170,6 @@ func getOSInfo() (ScanData, error) {
 		return scanData, err
 	}
 	scanData.AvailableDisk = string(output)
-
-	// Other info like Free/Total Disk Space
-	// Parsing df -h output or using any library to get disk stats
 
 	return scanData, nil
 }
